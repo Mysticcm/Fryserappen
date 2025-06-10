@@ -22,3 +22,7 @@ a {
 #appNavn {
   font-size: 2.5rem;
 }
+
+td {
+  text-align: center;
+}

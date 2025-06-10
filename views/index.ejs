@@ -6,9 +6,25 @@
 <body>
     <%- include("./partials/navbar.ejs") %>
     <div class="border-3">
-        <ul class="" id="framside">
-
-        </ul>
+        <table class="border border-3 border-primary mt-3" id="framside">
+            <!-- Når en trykker på Navn, vekt etc. sortere varene -->
+            <tr>
+                <th class="border border-1 border-primary text-center text-primary col-1">Navn</th>
+                <th class="border border-1 border-primary text-center text-primary col-1">Type</th>
+                <th class="border border-1 border-primary text-center text-primary col-1">Vekt</th>
+                <th class="border border-1 border-primary text-center text-primary col-1">Dato</th>
+                <th class="border border-1 border-primary text-center text-primary col-1">Fryser</th>
+                <th class="border border-1 border-primary text-center text-primary col-1">Kommentar</th>
+            </tr>
+            <tr>
+                <td>Kjøttdeig</td>
+                <td>Storfe</td>
+                <td>400g</td>
+                <td>21.10.2025</td>
+                <td>1</td>
+                <td>Passer fint til gryterett</td>
+            </tr>
+        </table>
     </div>
     
 </body>

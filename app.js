@@ -6,7 +6,7 @@ var logger = require('morgan');
 // MongoDB
 const mongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://127.0.0.1:27017';
-const dbname = 'FridgeStorage';
+const dbname = 'fryserdb';
 
 var indexRouter = require('./routes/index');
 var settingsRouter = require('./routes/settings')
@@ -24,12 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use("/css", express.static("./node_modules/bootstrap/dist/css"));
 
-mongoClient.connect(url, {}, (error, client) => {
-if(error)
-    console.log("Cannot connect");
-  console.log("Connection OK");
-  const db = client.db(dbname);
-});
+
 
 app.use('/', indexRouter);
 app.use('/settings', settingsRouter);
