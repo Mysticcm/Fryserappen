@@ -4,12 +4,18 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 // MongoDB
-const mongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://127.0.0.1:27017';
-const dbname = 'fryserdb';
+const mongoose = require('mongoose');
+// const mongoClient = require('mongodb').MongoClient;
+// const url = 'mongodb://127.0.0.1:27017';
+// const dbname = 'fryserdb';
+
+mongoose.connect('mongodb://127.0.0.1:27017/fryserdb');
+console.log("Connected");
+
 
 var indexRouter = require('./routes/index');
-var settingsRouter = require('./routes/settings')
+var settingsRouter = require('./routes/settings');
+var fryserRouter = require('./routes/fryser');
 
 var app = express();
 
@@ -28,6 +34,7 @@ app.use("/css", express.static("./node_modules/bootstrap/dist/css"));
 
 app.use('/', indexRouter);
 app.use('/settings', settingsRouter);
+app.use('/fryser', fryserRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

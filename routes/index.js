@@ -1,27 +1,40 @@
 var express = require('express');
 var router = express.Router();
-const mongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://127.0.0.1:27017';
-const dbname = 'fryserdb';
+var bodyParser = require('body-parser')
+var jsonParser = bodyParser.json()
+const mongoose = require('mongoose');
+var VareService = require('../services/VareService');
+
+// Mongodb
+const vareSchema = new mongoose.Schema({
+  name: String, 
+  type: String,
+  weight: Number,
+  date: String,
+  fridgeNumber: Number,
+  comment: String
+}) 
+
+var vareService = new VareService(vareSchema);
+// const Varer = mongoose.model('Vare', vareSchema);
+
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Framside' });
+router.get('/', async function(req, res, next) {
+
+  const result = await vareService.findAll();
+    // console.log("Varer: ", result)
+
+  res.render('index', { title: 'Framside', varer: result });
 });
 
-mongoClient.connect(url, {}, (error, client) => {
-if(error)
-    console.log("Cannot connect");
-  console.log("Connection OK");
-  const db = client.db(dbname);
+router.post('/', jsonParser, async function(req, res, next) {
 
-  db.collection('Fryser').find({
-    Name: "Fisk"
-  }).toArray((error, result) => {
-    console.log(result);
-  });
+  const postRequest = req.body;
+  vareService.createWare(postRequest)
 
-  db.collection.insertOne({Name: "Kjøttdeig", Weight: "400", Date: "17.09.2025", FridgeNumber: "1"})
-});
+  res.status(200).redirect('/')  
+
+})
 
 module.exports = router;

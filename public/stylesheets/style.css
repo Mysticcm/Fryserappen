@@ -1,7 +1,7 @@
 
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 5vw;
+  font: 1vw "Lucida Grande", Arial, sans-serif;
 }
 
 a {
@@ -20,9 +20,22 @@ a {
   font-style: normal;
 }
 #appNavn {
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 
+th {
+  text-shadow: white 1vw;
+}
 td {
   text-align: center;
+}
+
+tr:nth-of-type(even) {
+  background-color: rgb(13, 110, 253, 0.1);
+}
+
+.addBtn {
+  position: fixed;
+  bottom: 5vw;
+  right: 6vw;
 }
