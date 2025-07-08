@@ -17,7 +17,7 @@ const vareSchema = new mongoose.Schema({
 
 var vareService = new VareService(vareSchema);
 
-router.get('/', async function(res, req, next) {
+router.get('/', async function(req, res, next) {
 
   res.render('fryser', { title: 'Fryseroversikt' });
 });

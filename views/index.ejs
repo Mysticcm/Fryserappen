@@ -10,9 +10,9 @@
             <!-- Når en trykker på Navn, vekt etc. sortere varene -->
             <thead>
                 <tr class="bg-primary bg-opacity-25">
-                    <th class="border border-1 border-primary text-center text-primary col-1">Navn</th>
-                    <th class="border border-1 border-primary text-center text-primary col-1">Type</th>
-                    <th class="border border-1 border-primary text-center text-primary col-1">Vekt</th>
+                    <th class="border border-1 border-primary text-center text-primary col-1" onclick="sortBy('navn')">Navn</th>
+                    <th class="border border-1 border-primary text-center text-primary col-1" onclick="sortBy('type', 'Høns')">Type</th>
+                    <th class="border border-1 border-primary text-center text-primary col-1">Vekt(g)</th>
                     <th class="border border-1 border-primary text-center text-primary col-1">Dato</th>
                     <th class="border border-1 border-primary text-center text-primary col-1">Fryser</th>
                     <th class="border border-1 border-primary text-center text-primary col-1">Kommentar</th>
@@ -41,14 +41,14 @@
     <button type="button" class="btn-close bg-danger" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-    <form action="/" method="post" autocomplete="on">
+    <form action="/create" method="post" autocomplete="on">
         <input type="text" id="name" name="name" placeholder="varenavn" required><br>
         <input type="text" id="type" name="type" placeholder="varetype" required><br>
-        <input type="number" id="weight" name="weight" placeholder="vekt"><br>
-        <input type="date" id="date" name="date" placeholder="dato"><br>
-        <input type="number" id="fridgeNumber" name="fridgeNumber" placeholder="fryser nummer"><br>
-        <input type="text" id="comment" name="comment" placeholder="kommentar"><br>
-        <input type="submit" value="Legg til" class="btn btn-outline-success">
+        <input type="number" id="weight" name="weight" placeholder="vekt" step="100"><br>
+        <input type="date" id="date" name="date"><br>
+        <input type="number" id="fridgeNumber" name="fridgeNumber" min="1" placeholder="fryser nummer" requiered><br>
+        <input type="text" id="comment" name="comment" placeholder="kommentar" maxlength="100"><br>
+        <input type="submit" value="Legg til" class="btn btn-success mt-1">
     </form>
   </div>
 </div>
@@ -59,7 +59,7 @@
     
 </body>
 <footer>
-    <!-- <script src="../javascripts/createWare.js"> </script> -->
+    <script src="../javascripts/sortBy.js"> </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js" integrity="sha384-RuyvpeZCxMJCqVUGFI0Do1mQrods/hhxYlcVfGPOfQtPJh0JCw12tUAZ/Mv10S7D" crossorigin="anonymous"></script>
 </footer>
 </html>
