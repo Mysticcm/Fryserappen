@@ -30,7 +30,7 @@ class VareService {
 
     // Find wares
     async findAll() {
-        const varer = await Varer.find({}).limit(20).exec();
+        const varer = await Varer.find({})/* .limit(20) */.exec();
         return varer;
     }
     // Find by name
@@ -45,13 +45,20 @@ class VareService {
     }
     // Find by Date
     async findByDate(date) {
-        const varer = await Varer.find({date: {$gt : date}})
+        const varer = await Varer.find({date: {$gt : date}}).exec();
         return varer;
     }
     // Find by fridgeNumber
     async findByFridge(fridgeNumber) {
-        const varer = await Varer.find({fridgeNumber: fridgeNumber})
-        return varer;
+        try {
+            const varer = await Varer.find({ fridgeNumber }).exec();
+            const count = await Varer.countDocuments({ fridgeNumber }).exec();
+            return { fridgeNumber, varer, count };
+        } catch (err) {
+            console.error('Error finding items:', err);
+            throw new Error('Failed to fetch fridge data');
+}
+
     }    
     // Sorty by name
     async sortByName(name) {

@@ -31,13 +31,15 @@ router.post('/create', jsonParser, async function(req, res, next) {
   const postRequest = req.body;
   result = '';
   vareService.createWare(postRequest);
-  res.redirect('/');
+  res.redirect(200, '/');
 });
+
 /* Logo clicked */
 router.post('/logoClicked', async function(req, res, next) {
   result = '';
-  res.redirect(200, '/');
+  res.redirect(200, 'index');
 });
+
 /* GET sort wares */
 let lastSorted;
 router.post('/sortert/:sortering', jsonParser, async function(req, res, next) {

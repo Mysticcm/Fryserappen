@@ -5,6 +5,47 @@
 </head>
 <body>
     <%- include("./partials/navbar.ejs") %>
-    
+    <ul class="pt-3"> 
+        <% if(fridgeContainers) {%> 
+            <% fridgeContainers.forEach(fridge => { %>
+                <button class="btn list-group-item list-group-item-action list-group-item-primary rounded-3 d-flex justify-content-between align-items-start  m-3 p-3" data-bs-toggle="collapse" href="#<%=fridge.fridgeNumber%>" role="button" aria-expanded="false" aria-controls="<%=fridge.fridgeNumber%>">
+                    <div class="fw-bold">Fryser: <%=fridge.fridgeNumber%></div>
+                    <span class="badge text-bg-primary rounded-pill">Antall: <%=fridge.count%></span>
+                </button>    
+                <div class="collapse" id="<%=fridge.fridgeNumber%>">
+                    <div class="card card-body border-1 border-primary-subtle ms-3">
+                        <table>
+                            <thead>
+                                <tr class="bg-primary bg-opacity-25 m">
+                                    <th class="text-center text-primary col-1">Navn</th>
+                                    <th class="text-center text-primary col-1">Type</th>
+                                    <th class="text-center text-primary col-1">Vekt(g)</th>
+                                    <th class="text-center text-primary col-1">Dato</th>
+                                    <th class="text-center text-primary col-1">Fryser</th>
+                                    <th class="text-center text-primary col-1">Kommentar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% fridge.varer.forEach((vare) => { %>
+                                    <tr>
+                                        <td><%=vare.name%></td>
+                                        <td><%=vare.type%></td>
+                                        <td><%=vare.weight%></td>
+                                        <td><%=vare.date%></td>
+                                        <td><%=vare.fridgeNumber%></td>
+                                        <td><%=vare.comment%></td>
+                                    </tr>
+                                <%})%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+            <%});%>
+        <%}%>
+    </ul>
+            
 </body>
+<footer>
+    <%- include('./partials/footer.ejs') %>
+</footer>
 </html>
