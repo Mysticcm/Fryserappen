@@ -45,7 +45,7 @@ class VareService {
     }
     // Find by Date
     async findByDate(date) {
-        const varer = await Varer.find({date: {$gt : date}}).exec();
+        const varer = await Varer.find({date: date}).sort({ date: 1 }).exec();
         return varer;
     }
     // Find by fridgeNumber
@@ -57,12 +57,26 @@ class VareService {
         } catch (err) {
             console.error('Error finding items:', err);
             throw new Error('Failed to fetch fridge data');
-}
-
+        }
     }    
     // Sorty by name
     async sortByName(name) {
         const varer = await Varer.find({}).sort({name: name});
+        return varer;
+    }
+    // Sort ny waretype
+    async sortByType(type) {
+        const varer = await Varer.find({}).sort({ type: type });
+        return varer;
+    }
+    // Sort by fridge
+    async sortByFridge(fridge) {
+        const varer = await Varer.find({}).sort({ fridgeNumber: fridge});
+        return varer;
+    }
+    // Sort by date
+    async sortByDate(date) {
+        const varer = await Varer.find({}).sort({ date: date});
         return varer;
     }
     // Find the different values of a key

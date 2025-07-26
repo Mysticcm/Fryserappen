@@ -13,7 +13,20 @@ const vareSchema = new mongoose.Schema({
   date: String,
   fridgeNumber: Number,
   comment: String
-}) 
+});
+
+// 🧠 Add virtual for formatted date
+vareSchema.virtual('formattedExpiryDate').get(function () {
+  return this.date
+    ? this.date.toISOString().slice(0, 10) // yyyy-mm-dd
+    : null;
+});
+
+// ⚙️ Make sure virtuals are included when converting to JSON
+vareSchema.set('toJSON', { virtuals: true });
+vareSchema.set('toObject', { virtuals: true });
+
+
 var vareService = new VareService(vareSchema);
 
 let result;
@@ -31,7 +44,7 @@ router.post('/create', jsonParser, async function(req, res, next) {
   const postRequest = req.body;
   result = '';
   vareService.createWare(postRequest);
-  res.redirect(200, '/');
+  res.redirect('..');
 });
 
 /* Logo clicked */
@@ -45,27 +58,25 @@ let lastSorted;
 router.post('/sortert/:sortering', jsonParser, async function(req, res, next) {
   let sortBy = req.params.sortering;
   let param;
-  if(lastSorted == sortBy && sortBy == 'navn') {
+  if(lastSorted == sortBy) {
     lastSorted = '';
     param = -1;
-    console.log('LAST SORTED')
-  } else if(sortBy == 'navn') {
+  } else {
     lastSorted = req.params.sortering;
     param = 1;
-    console.log('LAST SORTED 2')
   }
   switch(sortBy) {
     case 'navn': 
       result = await vareService.sortByName(param);
       break;
     case 'type': 
-    console.log(req.params.type)
-      result = await vareService.findByType(req.body.type);
+      result = await vareService.sortByType(param);
       break;
     case 'dato': 
+      result = await vareService.sortByDate(param);
       break;
     case 'fryser':
-
+      result = await vareService.sortByFridge(param);
       break;  
   }
   res.redirect(200, '/');

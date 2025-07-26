@@ -9,12 +9,11 @@
         <table class="border border-3 border-primary mt-3" id="framside">
             <thead>
                 <tr class="bg-primary bg-opacity-25">
-                    <th class="border border-1 border-primary text-center text-primary col-1" onclick="sortBy('navn')">Navn</th>
-                    <th class="accordion border-1 border-primary text-center text-primary col-1">Type</th>
+                    <th class="border border-1 border-primary text-center text-primary col-1" onclick="sortBy('navn')">Vare</th>
+                    <th class="accordion border-1 border-primary text-center text-primary col-1" onclick="sortBy('type')">Type</th>
                     <th class="border border-1 border-primary text-center text-primary col-1">Vekt(g)</th>
-                    <th class="border border-1 border-primary text-center text-primary col-1">Dato</th>
-                    <th class="border border-1 border-primary text-center text-primary col-1">Fryser</th>
-                    <th class="border border-1 border-primary text-center text-primary col-1">Kommentar</th>
+                    <th class="border border-1 border-primary text-center text-primary col-1" onclick="sortBy('dato')">Dato</th>
+                    <th class="border border-1 border-primary text-center text-primary col-1" onclick="sortBy('fryser')">Fryser</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,7 +25,6 @@
                             <td><%=vare.weight%></td>
                             <td><%=vare.date%></td>
                             <td><%=vare.fridgeNumber%></td>
-                            <td><%=vare.comment%></td>
                         </tr>
                     <%});%>
                 <%}%>    
@@ -53,7 +51,7 @@
     </div>
 
     <div class="float-end addBtn">
-        <button class="btn btn-outline-success col fw-bold" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop"> + </button>
+        <button class="btn btn-outline-success col fw-bold" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">Ny vare +</button>
     </div>
     
 </body>

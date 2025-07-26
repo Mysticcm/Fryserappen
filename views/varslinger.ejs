@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('./partials/header.ejs') %>
+</head>
+<body>
+    <%- include("./partials/navbar.ejs") %>
+
+<!-- Table utgått -->
+    <div class="table-responsive m-3">
+        <h2 class="ps-3">Utgått:</h2>
+        <table class="table table-danger text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Vare</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Utløpsdato</th>
+                    <th scope="col">Fryser</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(expired) { %>
+                    <% expired.forEach((vare) => { %>
+                        <tr>
+                            <td><%=vare.name%></td>
+                            <td><%=vare.type%></td>
+                            <td><%=vare.date%></td>
+                            <td><%=vare.fridgeNumber%></td>
+                        </tr>
+                    <% }) %>
+               <% } %>
+            </tbody>
+        </table>      
+    </div>
+
+    <!-- Table snart utgått -->
+    <div class="table-responsive m-3">
+        <h2 class="ps-3">Snart utgått:</h2>
+        <table class="table table-warning text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Vare</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Utløpsdato</th>
+                    <th scope="col">Fryser</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(soonExpired) { %>
+                    <% soonExpired.forEach((vare) => { %>
+                        <tr>
+                            <td><%=vare.name%></td>
+                            <td><%=vare.type%></td>
+                            <td><%=vare.date%></td>
+                            <td><%=vare.fridgeNumber%></td>
+                        </tr>
+                    <% }) %>
+               <% } %>
+            </tbody>
+        </table>      
+    </div>
+
+
+</body>
+<footer>
+    <%- include('./partials/footer.ejs') %>
+</footer>
+</html>

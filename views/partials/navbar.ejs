@@ -1,14 +1,16 @@
 <navbar class="navbar">
     <div class="container-fluid">
-        <ul class="nav nav-tabs justify-content-evenly">
-            <li onclick="logoClicked('true')">
+        <ul class="nav nav-tabs justify-content-evenly col-lg-10">
+            <li onclick="logoClicked('true')" class="">
                 <a href="/"><div class="me-3 mansalva-regular text-primary" id="appNavn"><b>Fryserappen</b><i class="bi bi-thermometer-snow"></i></div></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">Oversikt</a>
+                <a class="nav-link" name="Fryseroversikt" href="/fryser">Oversikt</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" name="Fryseroversikt" href="/fryser">Fryser</a>
+                <a class="nav-link" aria-current="page" href="/varslinger">
+                    <i class="bi bi-bell-fill text-warning"></i>
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" name="Innstillinger" aria-disabled="true" href="/settings">

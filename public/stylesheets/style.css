@@ -8,6 +8,14 @@ a {
   color: #00B7FF;
 }
 
+navbar li {
+  font-weight: bold;
+}
+
+navbar  li:hover {
+  transform: scale(125%);
+
+}
 
 .allura-regular {
   font-family: "Allura", cursive;
