@@ -59,26 +59,12 @@ class VareService {
             throw new Error('Failed to fetch fridge data');
         }
     }    
-    // Sorty by name
-    async sortByName(name) {
-        const varer = await Varer.find({}).sort({name: name});
+
+    // Sort
+    async sortBy(key, value) {
+        const varer = await Varer.find({}).sort({ [key]: value} );
         return varer;
-    }
-    // Sort ny waretype
-    async sortByType(type) {
-        const varer = await Varer.find({}).sort({ type: type });
-        return varer;
-    }
-    // Sort by fridge
-    async sortByFridge(fridge) {
-        const varer = await Varer.find({}).sort({ fridgeNumber: fridge});
-        return varer;
-    }
-    // Sort by date
-    async sortByDate(date) {
-        const varer = await Varer.find({}).sort({ date: date});
-        return varer;
-    }
+    };
     // Find the different values of a key
     async different(key) {
         const distinct = await Varer.distinct(key);

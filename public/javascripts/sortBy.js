@@ -1,13 +1,13 @@
-async function sortBy(sort, type) {
+async function sortBy(sort) {
     await fetch(`http://localhost:3000/sortert/${sort}`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'
-        } ,
+        } /* ,
         body: JSON.stringify({
             sort: sort,
             type: type
-        }) 
+        }) */ 
     }).then((response) => {
         if (response.ok) {
             const resData = `Sortert etter ${sort}!`;
