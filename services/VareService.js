@@ -8,7 +8,7 @@ const vareSchema = new mongoose.Schema({
   fridgeNumber: Number,
   comment: String
 })  
-const Varer = mongoose.model('Vare', vareSchema);
+const db = mongoose.model('Vare', vareSchema);
 
 class VareService {
     constructor(nyVare) {
@@ -20,39 +20,39 @@ class VareService {
         this.comment = nyVare.comment;
     }
 
-    // Create ny ware ++
+// Create ny ware ++
     async createWare(ny) {
         const nyVare = new VareService(ny);
         console.log("Ny vare: ", nyVare);
-        Varer.insertOne(ny)
+        db.insertOne(ny)
         return;
     }
 
-    // Find wares
+// Find wares
     async findAll() {
-        const varer = await Varer.find({})/* .limit(20) */.exec();
+        const varer = await db.find({}).limit(50).exec();
         return varer;
     }
-    // Find by name
+/* // Find by name
     async findByName(name) {
-        const varer = await Varer.find({name: name}).exec();
+        const varer = await db.find({name: name}).exec();
         return varer;
     }
-    // Find by type
+// Find by type
     async findByType(type) {
-        const varer = await Varer.find({type: type}).exec();
+        const varer = await db.find({type: type}).exec();
         return varer;
-    }
-    // Find by Date
+    } */
+// Find by Date
     async findByDate(date) {
-        const varer = await Varer.find({date: date}).sort({ date: 1 }).exec();
+        const varer = await db.find({date: date}).sort({ date: 1 }).exec();
         return varer;
     }
-    // Find by fridgeNumber
+// Find by fridgeNumber
     async findByFridge(fridgeNumber) {
         try {
-            const varer = await Varer.find({ fridgeNumber }).exec();
-            const count = await Varer.countDocuments({ fridgeNumber }).exec();
+            const varer = await db.find({ fridgeNumber }).exec();
+            const count = await db.countDocuments({ fridgeNumber }).exec();
             return { fridgeNumber, varer, count };
         } catch (err) {
             console.error('Error finding items:', err);
@@ -60,14 +60,14 @@ class VareService {
         }
     }    
 
-    // Sort
+// Sort
     async sortBy(key, value) {
-        const varer = await Varer.find({}).sort({ [key]: value} );
+        const varer = await db.find({}).sort({ [key]: value} );
         return varer;
     };
-    // Find the different values of a key
+// Find the different values of a key
     async different(key) {
-        const distinct = await Varer.distinct(key);
+        const distinct = await db.distinct(key).sort();
         return distinct;
     }
 }

@@ -20,7 +20,7 @@
             <tbody>
                 <% if(varer) {%>
                     <% varer.forEach((vare) => { %>
-                        <tr data-bs-toggle="modal" data-bs-target="#modalId">
+                        <tr data-bs-toggle="modal" data-bs-target="#modal" onclick="populateModal(<%= JSON.stringify(vare) %>)">
                             <td><%=vare.name%></td>
                             <td><%=vare.type%></td>
                             <td><%=vare.weight%></td>
@@ -35,7 +35,7 @@
 <!-- offcanvas -->
     <div class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
       <div class="offcanvas-header bg-primary text-light">
-        <h5 class="offcanvas-title" id="staticBackdropLabel">Legg til ny vare    <i class="bi bi-plus-circle-dotted"></i></h5>
+        <h5 class="offcanvas-title" id="staticBackdropLabel">Legg til ny vare <i class="bi bi-plus-circle-dotted"></i></h5>
         <button type="button" class="btn-close bg-danger" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
@@ -52,66 +52,80 @@
     </div>
 <!-- Button offcanvas -->
     <div class="float-end addBtn">
-        <button class="btn btn-outline-success col fw-bold" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">Ny vare +</button>
+        <button 
+            class="btn btn-outline-success col fw-bold" 
+            type="button" 
+            data-bs-toggle="offcanvas" 
+            data-bs-target="#staticBackdrop" 
+            aria-controls="staticBackdrop">
+            Ny vare +
+        </button>
     </div>
-<!-- Modal trigger button -->
-<button
-    type="button"
-    class="btn btn-primary btn-lg"
-    data-bs-toggle="modal"
-    data-bs-target="#modalId"
->
-    Launch
-</button>
 
 <!-- Modal Body -->
 <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-<div
-    class="modal fade"
-    id="modalId"
-    tabindex="-1"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-    
-    role="dialog"
-    aria-labelledby="modalTitleId"
-    aria-hidden="true"
->
     <div
-        class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
-        role="document"
+        id="modal"
+        class="modal fade"
+        tabindex="-1"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+
+        role="dialog"
+        aria-labelledby="modalTitleId"
+        aria-hidden="true"
     >
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitleId">
-                    Modal title
-                </h5>
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                ></button>
-            </div>
-            <div class="modal-body">Body</div>
-            <div class="modal-footer">
-                <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                >
-                    Close
-                </button>
-                <button type="button" class="btn btn-primary">Save</button>
+        <div
+            class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
+            role="document"
+        >
+            <div class="modal-content">
+                <div class="modal-header bg-warning-subtle">
+                    <h5 class="modal-title" id="modalTitleId">
+                        Redigere eller fjerne varen
+                    </h5>
+                    <button
+                        type="button"
+                        class="btn-close bg-danger"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                        title="Avbryt"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <form autocomplete="on">
+                        <input id="modalid" type="text" name="id" required disabled class="opacity-0"><br>
+                        <input id="modalname" type="text" name="name" placeholder="varenavn" required><br>
+                        <input id="modaltype" type="text" name="type" placeholder="varetype" required><br>
+                        <input id="modalweight" type="number" name="weight" placeholder="vekt" step="100" ><br>
+                        <input id="modaldate" type="date" name="date"><br>
+                        <input id="modalfridgeNumber" type="number" name="fridgeNumber" min="1" placeholder="fryser nummer" requiered><br>
+                        <input id="modalcomment" type="text" name="comment" placeholder="kommentar" maxlength="100"><br>
+                    <br>
+                        <div class="modal-footer justify-content-evenly">
+                            <button
+                                type="button"
+                                class="btn btn-danger"
+                                title="Slette varen"
+                                >
+                                <i class="bi bi-trash"></i> Fjern
+                            </button>
+                            <button 
+                                type="button" 
+                                class="btn btn-success"
+                                title="Lagre endringer">
+                                Lagre
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
     
 </body>
 <footer>
-    <script src="../javascripts/sortBy.js"> </script>
+    <script src="../javascripts/script.js"> </script>
     <%- include('./partials/footer.ejs') %>
 </footer>
 </html>

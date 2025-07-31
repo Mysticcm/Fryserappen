@@ -42,3 +42,22 @@ async function logoClicked(condition) {
         alert(response.statusText);
       }); 
 }
+
+async function populateModal(vare) {
+    console.log('vare', vare)
+    const map = {
+        modalid: vare._id,
+        modalname: vare.name,
+        modaltype: vare.type,
+        modalweight: vare.weight,
+        modaldate: vare.date,
+        modalfridgeNumber: vare.fridgeNumber,
+        modalcomment: vare.comment,
+    };
+
+    Object.entries(map).forEach(([id, val]) => {
+        const input = document.getElementById(id);
+        console.log(id, val)
+        if (input) input.value = val ?? '';
+    });
+}

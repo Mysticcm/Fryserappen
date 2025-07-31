@@ -1,20 +1,6 @@
-
 body {
   padding: 5vw;
   font: 1vw "Lucida Grande", Arial, sans-serif;
-}
-
-a {
-  color: #00B7FF;
-}
-
-navbar li {
-  font-weight: bold;
-}
-
-navbar  li:hover {
-  transform: scale(125%);
-
 }
 
 .allura-regular {
@@ -30,6 +16,21 @@ navbar  li:hover {
 #appNavn {
   font-size: 2rem;
 }
+
+
+a {
+  color: #00B7FF;
+}
+
+navbar li {
+  font-weight: bold;
+}
+
+navbar  li:hover {
+  transform: scale(125%);
+
+}
+
 
 th {
   text-shadow: white 1vw;
