@@ -93,8 +93,8 @@
                     ></button>
                 </div>
                 <div class="modal-body">
-                    <form autocomplete="on">
-                        <input id="modalid" type="text" name="id" required disabled class="opacity-0"><br>
+                    <form id="modalForm" action="/edit" method="post" autocomplete="on">
+                        <input id="modalid" type="text" name="id" class="opacity-0"><br>
                         <input id="modalname" type="text" name="name" placeholder="varenavn" required><br>
                         <input id="modaltype" type="text" name="type" placeholder="varetype" required><br>
                         <input id="modalweight" type="number" name="weight" placeholder="vekt" step="100" ><br>
@@ -104,16 +104,18 @@
                     <br>
                         <div class="modal-footer justify-content-evenly">
                             <button
+                                id="modalSlettVare"
                                 type="button"
                                 class="btn btn-danger"
                                 title="Slette varen"
                                 >
                                 <i class="bi bi-trash"></i> Fjern
                             </button>
-                            <button 
-                                type="button" 
+                            <button
+                                id="modalLagreEndring" 
                                 class="btn btn-success"
-                                title="Lagre endringer">
+                                title="Lagre endringer"
+                                type="submit">
                                 Lagre
                             </button>
                         </div>

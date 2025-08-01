@@ -3,6 +3,10 @@ body {
   font: 1vw "Lucida Grande", Arial, sans-serif;
 }
 
+#appNavn {
+  font-size: 2rem;
+}
+
 .allura-regular {
   font-family: "Allura", cursive;
   font-weight: 400;
@@ -13,10 +17,12 @@ body {
   font-weight: 400;
   font-style: normal;
 }
-#appNavn {
-  font-size: 2rem;
-}
 
+.addBtn {
+  position: fixed;
+  bottom: 5vw;
+  right: 6vw;
+}
 
 a {
   color: #00B7FF;
@@ -28,9 +34,7 @@ navbar li {
 
 navbar  li:hover {
   transform: scale(125%);
-
 }
-
 
 th {
   text-shadow: white 1vw;
@@ -43,8 +47,3 @@ tr:nth-of-type(even) {
   background-color: rgb(13, 110, 253, 0.1);
 }
 
-.addBtn {
-  position: fixed;
-  bottom: 5vw;
-  right: 6vw;
-}

@@ -29,9 +29,10 @@ router.get('/', async function(req, res, next) {
             $lte: oneWeekSliced 
             });
         res.render('Varslinger', { title: 'Varslinger', expired, soonExpired: soonExpired })
-    } catch {
-
-    }
+    } catch (err) {
+            console.error('Error finding items:', err);
+            throw new Error('Failed to fetch data from db');
+        }
 });
 
 

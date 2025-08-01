@@ -27,22 +27,26 @@ class VareService {
         db.insertOne(ny)
         return;
     }
+// Edit ware
+    async editWare(vare) {
+        await db.findByIdAndUpdate({_id: vare.id}, {$set: vare}).exec();
+        return;
+    }
+// Delete ware
+    async deleteWare(id) {
+        let idExists = await db.findById( id );
+        if(idExists) {
+            await db.deleteOne({_id: id}).exec();
+        }
+        console.log('DELETED', id)
+        return;
+    }
 
-// Find wares
+// Find all wares
     async findAll() {
         const varer = await db.find({}).limit(50).exec();
         return varer;
     }
-/* // Find by name
-    async findByName(name) {
-        const varer = await db.find({name: name}).exec();
-        return varer;
-    }
-// Find by type
-    async findByType(type) {
-        const varer = await db.find({type: type}).exec();
-        return varer;
-    } */
 // Find by Date
     async findByDate(date) {
         const varer = await db.find({date: date}).sort({ date: 1 }).exec();

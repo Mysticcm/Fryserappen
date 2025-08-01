@@ -54,10 +54,35 @@ async function populateModal(vare) {
         modalfridgeNumber: vare.fridgeNumber,
         modalcomment: vare.comment,
     };
-
+    
     Object.entries(map).forEach(([id, val]) => {
         const input = document.getElementById(id);
-        console.log(id, val)
         if (input) input.value = val ?? '';
     });
+    const deleteButton = document.getElementById('modalSlettVare');
+    deleteButton.addEventListener('click', () => {
+        deleteWare(vare._id)
+    });
 }
+
+async function deleteWare(id) {
+    await fetch(`http://localhost:3000/delete`, {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        } , 
+        body: JSON.stringify({
+            id: id
+        })
+    }).then((response) => {
+        if (response.ok) {
+            const resData = `Vare slettet!`;
+            location.reload()
+            return Promise.resolve(resData);
+        }
+        return Promise.reject(response);
+    })
+      .catch((response) => {
+        alert(response.statusText);
+      });  
+};
