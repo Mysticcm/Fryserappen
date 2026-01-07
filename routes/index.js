@@ -14,6 +14,8 @@ const vareSchema = new mongoose.Schema({
 	fridgeNumber: Number,
 	comment: String
 });
+
+const Vare = mongoose.model('Vare', vareSchema);
 var vareService = new VareService(vareSchema);
 
 let result;

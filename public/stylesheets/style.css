@@ -1,7 +1,10 @@
 body {
-  padding: 5vw;
+  max-width: 1000px;
+  padding: 1vw;
   font: 1vw "Lucida Grande", Arial, sans-serif;
 }
+
+body 
 
 #appNavn {
   font-size: 2rem;
@@ -21,7 +24,7 @@ body {
 .addBtn {
   position: fixed;
   bottom: 5vw;
-  right: 6vw;
+  right: 4.5vw;
 }
 
 a {
@@ -32,7 +35,7 @@ navbar li {
   font-weight: bold;
 }
 
-navbar  li:hover {
+navbar li:hover {
   transform: scale(125%);
 }
 

@@ -3,9 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
 // MongoDB
 const mongoose = require('mongoose');
-
 mongoose.connect('mongodb://127.0.0.1:27017/fryserdb').then(
 	console.log("Connected")
 );
@@ -14,7 +14,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/fryserdb').then(
 var indexRouter = require('./routes/index');
 var settingsRouter = require('./routes/settings');
 var fryserRouter = require('./routes/fryser');
-var varslingRouter = require('./routes/varslinger')
+var varslingRouter = require('./routes/varslinger');
 
 var app = express();
 
@@ -28,7 +28,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use("/css", express.static("./node_modules/bootstrap/dist/css"));
-
 
 
 app.use('/', indexRouter);

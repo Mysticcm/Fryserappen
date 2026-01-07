@@ -3,7 +3,7 @@
 <head>
     <%- include('./partials/header.ejs') %>
 </head>
-<body>
+<body class="m-auto pt-5">
     <%- include("./partials/navbar.ejs") %>
 <!-- Vare table -->
     <div class="border-3">
@@ -32,31 +32,51 @@
             </tbody>    
         </table>
     </div>
-<!-- offcanvas -->
-    <div class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
-      <div class="offcanvas-header bg-primary text-light">
-        <h5 class="offcanvas-title" id="staticBackdropLabel">Legg til ny vare <i class="bi bi-plus-circle-dotted"></i></h5>
-        <button type="button" class="btn-close bg-danger" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <form action="/create" method="post" autocomplete="on">
-            <input type="text" id="name" name="name" placeholder="varenavn" required><br>
-            <input type="text" id="type" name="type" placeholder="varetype" required><br>
-            <input type="number" id="weight" name="weight" placeholder="vekt" step="100"><br>
-            <input type="date" id="date" name="date"><br>
-            <input type="number" id="fridgeNumber" name="fridgeNumber" min="1" placeholder="fryser nummer" requiered><br>
-            <input type="text" id="comment" name="comment" placeholder="kommentar" maxlength="100"><br>
-            <input type="submit" value="Legg til" class="btn btn-success mt-1">
-        </form>
-      </div>
+<!-- modal ny-vare -->
+<div
+    class="modal fade"
+    id="modalNyVare"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="modalTitleId"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success-subtle">
+                <h5 class="modal-title" id="staticBackdropLabel">Legg til ny vare <i class="bi bi-plus-circle-dotted"></i></h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <form action="/create" method="post" autocomplete="on">
+                    <input type="text" id="name" name="name" placeholder="varenavn" required><br>
+                    <input type="text" id="type" name="type" placeholder="varetype" required><br>
+                    <input type="number" id="weight" name="weight" placeholder="vekt" step="100"><br>
+                    <input type="date" id="date" name="date"><br>
+                    <input type="number" id="fridgeNumber" name="fridgeNumber" min="1" placeholder="fryser nummer" requiered><br>
+                    <input type="text" id="comment" name="comment" placeholder="kommentar" maxlength="100"><br>
+                    <input type="submit" value="Legg til" class="btn btn-success mt-3">
+                </form>
+            </div>
+            <div class="modal-footer">
+                
+            </div>
+        </div>
     </div>
-<!-- Button offcanvas -->
+</div>
+
+<!-- Button modal ny vare -->
     <div class="float-end addBtn">
         <button 
             class="btn btn-outline-success col fw-bold" 
             type="button" 
-            data-bs-toggle="offcanvas" 
-            data-bs-target="#staticBackdrop" 
+            data-bs-toggle="modal" 
+            data-bs-target="#modalNyVare" 
             aria-controls="staticBackdrop">
             Ny vare +
         </button>
