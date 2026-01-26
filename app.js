@@ -1,20 +1,10 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-// MongoDB
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/fryserdb').then(
-	console.log("Connected")
-);
-
-
-var indexRouter = require('./routes/index');
-var settingsRouter = require('./routes/settings');
-var fryserRouter = require('./routes/fryser');
-var varslingRouter = require('./routes/varslinger');
 
 var app = express();
 
@@ -30,10 +20,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use("/css", express.static("./node_modules/bootstrap/dist/css"));
 
 
-app.use('/', indexRouter);
-app.use('/settings', settingsRouter);
-app.use('/fryser', fryserRouter);
-app.use('/varslinger', varslingRouter);
+app.use('/', require('./routes/index'));
+app.use('/fryser', require('./routes/fryser'));
+app.use('/settings', require('./routes/settings'));
+app.use('/users', require('./routes/user.routes'));
+app.use('/varslinger', require('./routes/varslinger'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

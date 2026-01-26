@@ -9,7 +9,7 @@
     <div class="border-3">
         <table class="border border-3 border-primary mt-3" id="framside">
             <thead>
-                <tr class="bg-primary bg-opacity-25">
+                <tr class="bg-primary bg-opacity-25 h5">
                     <th class="border border-1 border-primary text-center text-primary col-1" onclick="sortBy('name')">Vare</th>
                     <th class="accordion border-1 border-primary text-center text-primary col-1" onclick="sortBy('type')">Type</th>
                     <th class="border border-1 border-primary text-center text-primary col-1">Vekt(g)</th>
@@ -17,15 +17,15 @@
                     <th class="border border-1 border-primary text-center text-primary col-1" onclick="sortBy('fridgeNumber')">Fryser</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="fw-medium">
                 <% if(varer) {%>
                     <% varer.forEach((vare) => { %>
-                        <tr data-bs-toggle="modal" data-bs-target="#modal" onclick="populateModal(<%= JSON.stringify(vare) %>)">
-                            <td><%=vare.name%></td>
-                            <td><%=vare.type%></td>
-                            <td><%=vare.weight%></td>
-                            <td><%=vare.date%></td>
-                            <td><%=vare.fridgeNumber%></td>
+                        <tr class="" data-bs-toggle="modal" data-bs-target="#modal" onclick="populateModal(<%= JSON.stringify(vare) %>)">
+                            <td class="py-1"><%=vare.name%></td>
+                            <td class="py-1"><%=vare.type%></td>
+                            <td class="py-1"><%=vare.weight%></td>
+                            <td class="py-1"><%=vare.date%></td>
+                            <td class="py-1"><%=vare.fridgeNumber%></td>
                         </tr>
                     <%});%>
                 <%}%>    
@@ -73,7 +73,7 @@
 <!-- Button modal ny vare -->
     <div class="float-end addBtn">
         <button 
-            class="btn btn-outline-success col fw-bold" 
+            class="btn btn-success bg-light bg-opacity-75 text-success border-3 col fw-bold" 
             type="button" 
             data-bs-toggle="modal" 
             data-bs-target="#modalNyVare" 

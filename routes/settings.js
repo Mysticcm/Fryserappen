@@ -3,7 +3,12 @@ var router = express.Router();
 
 /* GET settings page. */
 router.get('/', async function(req, res, next) {
-  res.render('Settings', { title: 'Innstillinger' });
+	try {
+		return res.render('Settings', { title: 'Innstillinger' });
+	} catch (err) {
+		console.error('Error fetching settings page:', err);
+		next(err);
+	}
 });
 
 module.exports = router;

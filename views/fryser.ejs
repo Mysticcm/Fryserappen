@@ -16,20 +16,20 @@
                     <div class="card card-body border-1 border-primary-subtle">
                         <table>
                             <thead>
-                                <tr class="bg-primary bg-opacity-25 m">
+                                <tr class="bg-primary bg-opacity-25 h5">
                                     <th class="text-center text-primary col-1">Vare</th>
                                     <th class="text-center text-primary col-1">Type</th>
                                     <th class="text-center text-primary col-1">Vekt(g)</th>
                                     <th class="text-center text-primary col-1">Utløpsdato</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="fw-medium">
                                 <% fridge.varer.forEach((vare) => { %>
                                     <tr>
-                                        <td><%=vare.name%></td>
-                                        <td><%=vare.type%></td>
-                                        <td><%=vare.weight%></td>
-                                        <td><%=vare.date%></td>
+                                        <td class="py-1"><%=vare.name%></td>
+                                        <td class="py-1"><%=vare.type%></td>
+                                        <td class="py-1"><%=vare.weight%></td>
+                                        <td class="py-1"><%=vare.date%></td>
                                     </tr>
                                 <%})%>
                             </tbody>

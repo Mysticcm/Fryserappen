@@ -11,14 +11,14 @@
         <h2 class="ps-3">Utgått:</h2>
         <table class="table table-danger text-center">
             <thead>
-                <tr>
+                <tr class="h5">
                     <th scope="col">Vare</th>
                     <th scope="col">Type</th>
                     <th scope="col">Utløpsdato</th>
                     <th scope="col">Fryser</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="">
                 <% if(expired) { %>
                     <% expired.forEach((vare) => { %>
                         <tr>
