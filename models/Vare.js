@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-// const { isNumber } = require("util");
 
 const VareSchema = new mongoose.Schema(
   {

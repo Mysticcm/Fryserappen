@@ -3,11 +3,7 @@ async function sortBy(sort) {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'
-        } /* ,
-        body: JSON.stringify({
-            sort: sort,
-            type: type
-        }) */ 
+        }
     }).then((response) => {
         if (response.ok) {
             const resData = `Sortert etter ${sort}!`;
@@ -21,26 +17,27 @@ async function sortBy(sort) {
       });  
 };
 
-async function logoClicked(condition) {
-    await fetch(`http://localhost:3000/logoClicked`, {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json'
-        } ,
-        body: JSON.stringify({
-            sort: condition
-        }) 
-    }).then((response) => {
+async function logoClicked() {
+    console.log(this.location.href)
+    if(this.location.href == "http://localhost:3000/") {
+        await fetch(`http://localhost:3000/logoClicked`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }
+    ).then((response) => {
         if (response.ok) {
-            const resData = `Standard sortering!`;
-            location.reload()
-            return Promise.resolve(resData);
+            return location.reload()
         }
         return Promise.reject(response);
     })
       .catch((response) => {
         alert(response.statusText);
       }); 
+    } else {
+        return location.href("http://localhost:3000/")
+    }
 }
 
 async function populateModal(vare) {
@@ -86,3 +83,15 @@ async function deleteWare(id) {
         alert(response.statusText);
       });  
 };
+
+async function deleteToast(id, name) {
+    console.log(id, name);
+    
+    const deleteToast = document.getElementById("deleteToast");
+    document.getElementById("toastmsg").innerHTML = name;
+    const deleteButton = document.getElementById('toastDelete');
+    deleteButton.addEventListener('click', () => {
+        deleteWare(id)
+    });
+    new bootstrap.Toast(deleteToast, {delay: 7000}).show()
+}

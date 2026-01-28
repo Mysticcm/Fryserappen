@@ -21,7 +21,7 @@
             <tbody class="">
                 <% if(expired) { %>
                     <% expired.forEach((vare) => { %>
-                        <tr>
+                        <tr onclick="deleteToast('<%=vare._id%>', '<%=vare.name%>')">
                             <td><%=vare.name%></td>
                             <td><%=vare.type%></td>
                             <td><%=vare.date%></td>
@@ -48,7 +48,7 @@
             <tbody>
                 <% if(soonExpired) { %>
                     <% soonExpired.forEach((vare) => { %>
-                        <tr>
+                        <tr onclick="deleteToast('<%=vare._id%>', '<%=vare.name%>')">
                             <td><%=vare.name%></td>
                             <td><%=vare.type%></td>
                             <td><%=vare.date%></td>
@@ -60,9 +60,20 @@
         </table>      
     </div>
 
+<!-- Delete toast -->
+    <div id="deleteToast" class="toast position-fixed top-50 start-0 ms-5 border-3 rounded-3 border-danger-subtle" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="toastBody" class="toast-body">
+            <button type="button" class="btn btn-close bg-danger float-end" aria-label="Close" data-bs-dismiss="toast" title="Avbryt"></button>
+            <p id="toastmsg" class="fw-medium h4"></p>
+            <div class="mt-2 pt-2 border-top">
+                <button id="toastDelete" type="button" class="btn btn-outline-danger border-2 btn-sm fw-medium p-md-2">Slett</button>
+            </div>
+        </div>
+    </div>
 
 </body>
 <footer>
+    <script src="../javascripts/script.js"> </script>
     <%- include('./partials/footer.ejs') %>
 </footer>
 </html>

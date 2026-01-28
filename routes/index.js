@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 var bodyParser = require("body-parser");
 var jsonParser = bodyParser.json();
-const mongoose = require("mongoose");
 var vareService = require("../services/vare.service");
 
 let result;
@@ -62,7 +61,7 @@ router.post("/delete", async function (req, res, next) {
 router.post("/logoClicked", async function (req, res, next) {
   try {
     result = "";
-    return res.redirect(200, "index");
+	return res.status(200).json({status: "success"})
   } catch (err) {
     console.error("Error returning to index:", err);
     next(err);
