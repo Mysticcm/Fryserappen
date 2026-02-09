@@ -7,7 +7,7 @@ const VareSchema = new mongoose.Schema(
     weight: { type: Number },
     date: { type: String, required: true },
     fridgeNumber: { type: Number, required: true },
-    comment: { type: String  }
+    comment: { type: String }
   },
   { timestamps: true }
 );

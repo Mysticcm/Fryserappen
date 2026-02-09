@@ -1,8 +1,11 @@
 var express = require("express");
 var router = express.Router();
 var vareService = require("../services/vare.service");
+const { loggedIn } = require('./authmiddlewares');
+const logoCC = require('../controllers/logoClick.controller');
 
-router.get("/", async function (req, res, next) {
+
+router.get("/", loggedIn, async function (req, res, next) {
 	try {
 		const today = new Date().toISOString().slice(0, 10);
 		let oneWeekFromNow = new Date();
@@ -18,11 +21,15 @@ router.get("/", async function (req, res, next) {
 			title: "Varslinger",
 			expired,
 			soonExpired: soonExpired,
+			theme: req.user?.theme ?? "primary",
 		});
 	} catch (err) {
 		console.error("Error finding items:", err);
 		throw new Error("Failed to fetch data from db");
 	}
 });
+
+/* Logo clicked */
+router.post("/logoClicked", loggedIn, logoCC.logoClicked);
 
 module.exports = router;

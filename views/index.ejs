@@ -4,147 +4,149 @@
     <%- include('./partials/header.ejs') %>
 </head>
 <body class="m-auto pt-5">
-    <%- include("./partials/navbar.ejs") %>
+    <%- include("./partials/navbar.ejs", theme) %>
+
+<!-- Varesøk -->
+  <div class="border border-3 border-<%=theme%> bg-<%=theme%>-subtle mt-2 p-2 text-center row-cols-2">
+    <input id="search" class="ps-1 fw-medium border border-2 border-<%=theme%>" type="search" placeholder="Skriv for å søke...">
+  </div>  
 <!-- Vare table -->
-    <div class="border-3">
-        <table class="border border-3 border-primary mt-3" id="framside">
-            <thead>
-                <tr class="bg-primary bg-opacity-25 h5">
-                    <th class="border border-1 border-primary text-center text-primary col-1" onclick="sortBy('name')">Vare</th>
-                    <th class="accordion border-1 border-primary text-center text-primary col-1" onclick="sortBy('type')">Type</th>
-                    <th class="border border-1 border-primary text-center text-primary col-1">Vekt</th>
-                    <th class="border border-1 border-primary text-center text-primary col-1" onclick="sortBy('date')">Utløpsdato</th>
-                    <th class="border border-1 border-primary text-center text-primary col-1" onclick="sortBy('fridgeNumber')">Fryser</th>
-                </tr>
-            </thead>
-            <tbody class="fw-medium">
-                <% if(varer) {%>
-                    <% varer.forEach((vare) => { %>
-                        <tr data-bs-toggle="modal" data-bs-target="#modal" onclick="populateModal(<%= JSON.stringify(vare) %>)">
-                            <td class="py-1"><%=vare.name%></td>
-                            <td class="py-1"><%=vare.type%></td>
-                            <td class="py-1"><%=vare.weight%></td>
-                            <td class="py-1"><%=vare.date%></td>
-                            <td class="py-1"><%=vare.fridgeNumber%></td>
-                        </tr>
-                    <%});%>
-                <%}%>    
-            </tbody>    
-        </table>
-    </div>
+  <div class="border-3">
+    <table class="border border-3 border-<%=theme%> mt-3" id="framside">
+      <thead>
+        <tr class="bg-<%=theme%> bg-opacity-25 h5">
+          <th class="border border-1 border-<%=theme%> text-center text-<%=theme%> col-1" onclick="sortBy('name')">Vare</th>
+          <th class="accordion border-1 border-<%=theme%> text-center text-<%=theme%> col-1" onclick="sortBy('type')">Type</th>
+          <th class="border border-1 border-<%=theme%> text-center text-<%=theme%> col-1">Vekt</th>
+          <th class="border border-1 border-<%=theme%> text-center text-<%=theme%> col-1" onclick="sortBy('date')">Utløpsdato</th>
+          <th class="border border-1 border-<%=theme%> text-center text-<%=theme%> col-1" onclick="sortBy('fridgeNumber')">Fryser</th>
+        </tr>
+      </thead>
+      <tbody class="fw-medium">
+        <% if(varer) {%>
+          <% varer.forEach((vare) => { %>
+            <tr data-bs-toggle="modal" data-bs-target="#modal" onclick="populateModal(<%=JSON.stringify(vare)%>)">
+              <td class="py-1 vareNavn"><%=vare.name%></td>
+              <td class="py-1"><%=vare.type%></td>
+              <td class="py-1"><%=vare.weight%></td>
+              <td class="py-1"><%=vare.date%></td>
+              <td class="py-1"><%=vare.fridgeNumber%></td>
+            </tr>
+          <%});%>
+        <%}%>    
+      </tbody>    
+    </table>
+  </div>
 <!-- modal ny-vare -->
-<div
+  <div
+      class="modal fade"
+      id="modalNyVare"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="modalTitleId"
+      aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-success-subtle">
+          <h5 class="modal-title" id="staticBackdropLabel">Legg til ny vare <i class="bi bi-plus-circle-dotted text-success-emphasis"></i></h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body bg-success-subtle">
+          <form action="/create" method="post" autocomplete="on" class="row-cols-1">
+            <input type="text" id="name" name="name" placeholder="varenavn" required><br>
+            <input type="text" id="type" name="type" placeholder="varetype" required><br>
+            <input type="number" id="weight" name="weight" placeholder="vekt"><br>
+            <input type="date" id="date" name="date"><br>
+            <input type="number" id="fridgeNumber" name="fridgeNumber" min="1" placeholder="fryser nummer" requiered><br>
+            <input type="text" id="comment" name="comment" placeholder="kommentar" maxlength="100"><br>
+            <input type="submit" value="Legg til" class="btn btn-success mt-3">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Button modal ny vare -->
+  <div class="float-end addBtn">
+    <button 
+      class="btn btn-success bg-light bg-opacity-75 text-success border-3 col fw-bold" 
+      type="button" 
+      data-bs-toggle="modal" 
+      data-bs-target="#modalNyVare" 
+      aria-controls="staticBackdrop">
+      Ny vare +
+    </button>
+  </div>
+
+<!-- Edit Modal -->
+<!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+  <div
+    id="modal"
     class="modal fade"
-    id="modalNyVare"
     tabindex="-1"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    
     role="dialog"
     aria-labelledby="modalTitleId"
     aria-hidden="true"
->
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-success-subtle">
-                <h5 class="modal-title" id="staticBackdropLabel">Legg til ny vare <i class="bi bi-plus-circle-dotted text-success-emphasis"></i></h5>
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                ></button>
-            </div>
-            <div class="modal-body bg-success-subtle">
-                <form action="/create" method="post" autocomplete="on" class="row-cols-1">
-                    <input type="text" id="name" name="name" placeholder="varenavn" required><br>
-                    <input type="text" id="type" name="type" placeholder="varetype" required><br>
-                    <input type="number" id="weight" name="weight" placeholder="vekt"><br>
-                    <input type="date" id="date" name="date"><br>
-                    <input type="number" id="fridgeNumber" name="fridgeNumber" min="1" placeholder="fryser nummer" requiered><br>
-                    <input type="text" id="comment" name="comment" placeholder="kommentar" maxlength="100"><br>
-                    <input type="submit" value="Legg til" class="btn btn-success mt-3">
-                </form>
-            </div>
-<!--             <div class="modal-footer">
-                
-            </div> -->
-        </div>
-    </div>
-</div>
-
-<!-- Button modal ny vare -->
-    <div class="float-end addBtn">
-        <button 
-            class="btn btn-success bg-light bg-opacity-75 text-success border-3 col fw-bold" 
-            type="button" 
-            data-bs-toggle="modal" 
-            data-bs-target="#modalNyVare" 
-            aria-controls="staticBackdrop">
-            Ny vare +
-        </button>
-    </div>
-
-<!-- Modal Body -->
-<!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+  >
     <div
-        id="modal"
-        class="modal fade"
-        tabindex="-1"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-
-        role="dialog"
-        aria-labelledby="modalTitleId"
-        aria-hidden="true"
+        class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
+        role="document"
     >
-        <div
-            class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
-            role="document"
-        >
-            <div class="modal-content">
-                <div class="modal-header bg-warning-subtle">
-                    <h5 class="modal-title" id="modalTitleId">
-                        Rediger eller fjern varen
-                    </h5>
-                    <button
-                        type="button"
-                        class="btn-close bg-danger"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                        title="Avbryt"
-                    ></button>
-                </div>
-                <div class="modal-body bg-warning-subtle">
-                    <form id="modalForm" action="/edit" method="post" autocomplete="on" class="row-cols-1">
-                        <input id="modalid" type="text" name="id" class="opacity-0"><br>
-                        <input id="modalname" type="text" name="name" placeholder="varenavn" required><br>
-                        <input id="modaltype" type="text" name="type" placeholder="varetype" required><br>
-                        <input id="modalweight" type="number" name="weight" placeholder="vekt"><br>
-                        <input id="modaldate" type="date" name="date"><br>
-                        <input id="modalfridgeNumber" type="number" name="fridgeNumber" min="1" placeholder="fryser nummer" requiered><br>
-                        <input id="modalcomment" type="text" name="comment" placeholder="kommentar" maxlength="100"><br>
-                    <br>
-                        <div class="modal-footer justify-content-evenly">
-                            <button
-                                id="modalSlettVare"
-                                type="button"
-                                class="btn btn-danger"
-                                title="Slette varen"
-                                >
-                                <i class="bi bi-trash"></i> Fjern
-                            </button>
-                            <button
-                                id="modalLagreEndring" 
-                                class="btn btn-success"
-                                title="Lagre endringer"
-                                type="submit">
-                                Lagre
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header bg-warning-subtle">
+          <h5 class="modal-title" id="modalTitleId">
+            Rediger eller fjern varen
+          </h5>
+          <button
+              type="button"
+              class="btn-close bg-danger"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              title="Avbryt"
+          ></button>
         </div>
+        <div class="modal-body bg-warning-subtle">
+          <form id="modalForm" action="/edit" method="post" autocomplete="on" class="row-cols-1">
+            <input id="modalid" type="text" name="id" class="opacity-0"><br>
+            <input id="modalname" type="text" name="name" placeholder="varenavn" required><br>
+            <input id="modaltype" type="text" name="type" placeholder="varetype" required><br>
+            <input id="modalweight" type="number" name="weight" placeholder="vekt"><br>
+            <input id="modaldate" type="date" name="date"><br>
+            <input id="modalfridgeNumber" type="number" name="fridgeNumber" min="1" placeholder="fryser nummer" requiered><br>
+            <input id="modalcomment" type="text" name="comment" placeholder="kommentar" maxlength="100"><br>
+          <br>
+            <div class="modal-footer justify-content-evenly">
+              <button
+                id="modalSlettVare"
+                type="button"
+                class="btn btn-danger"
+                title="Slette varen"
+                >
+                <i class="bi bi-trash"></i> Fjern
+              </button>
+              <button
+                id="modalLagreEndring" 
+                class="btn btn-success"
+                title="Lagre endringer"
+                type="submit">
+                Lagre
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-    
+  </div>
+
 </body>
 <footer>
     <script src="../javascripts/script.js"> </script>

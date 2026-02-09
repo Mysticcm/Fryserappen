@@ -2,10 +2,10 @@
     <div class="container-fluid">
         <ul class="nav nav-tabs justify-content-evenly col-lg-10">
             <li onclick="logoClicked()">
-                <a href="/"><div class="me-3 mansalva-regular text-primary" id="appNavn"><b>Fryserappen</b><i class="bi bi-thermometer-snow"></i></div></a>
+                <a href="/"><div class="me-3 mansalva-regular text-<%=theme%> text-decoration-underline text-decoration-<%=theme%>" id="appNavn"><b>Fryserappen</b><i class="bi bi-thermometer-snow"></i></div></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" name="Fryseroversikt" href="/fryser">Oversikt</a>
+                <a class="nav-link text-<%=theme%>" name="Fryseroversikt" href="/fryser">Oversikt</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="/varslinger">
@@ -14,7 +14,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" name="Innstillinger" aria-disabled="true" href="/settings">
-                    <i class="bi bi-gear-fill"></i>
+                    <i class="bi bi-gear-fill text-<%=theme%>"></i>
                 </a>
             </li>
         </ul> 

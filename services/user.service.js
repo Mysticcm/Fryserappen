@@ -1,24 +1,29 @@
 const User = require("../models/User");
 
-async function createUser(data) {
-  return await User.create(data);
+async function createUser(username, email, salt, password) {
+  return await User.create({username, email, salt, password});
 }
 
 async function getUsers() {
   return await User.find();
 }
 
-async function getUserById(id) {
-  return await User.findById(id);
+async function getUserByUserName(username) {
+  return await User.findOne({username});
 }
 
-async function deleteUser(id) {
-  return await User.findByIdAndDelete(id);
+async function setUserTheme(userId, themeId) {
+  return await User.findByIdAndUpdate({_id: userId}, {theme: themeId})
 }
+
+// async function deleteUser(id) {
+//   return await User.findByIdAndDelete(id);
+// }
 
 module.exports = {
   createUser,
   getUsers,
-  getUserById,
-  deleteUser,
+  getUserByUserName,
+  setUserTheme,
+  // deleteUser,
 };

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/header.ejs') %>
+</head>
+<body class="m-auto p-5">
+    <div class="mb-3 mansalva-regular text-primary" id="appNavn">
+        <b>Fryserappen</b><i class="bi bi-thermometer-snow"></i>
+    </div>
+
+    <div class="border border-3 border-primary bg-primary-subtle rounded-3 p-3 mt-5">
+        <form action="/signup" method="post" autocomplete="on" class="row-cols-1 fw-medium">
+            <label class="fw-bold text-primary">Username</label>
+            <input class="border border-2 border-primary rounded-2 p-1 fw-medium" name="username" type="text" placeholder="username">
+            <label class="fw-bold text-primary">Email</label>
+            <input class="border border-2 border-primary rounded-2 p-1 fw-medium" name="email" type="text" placeholder="email">
+            <label class="fw-bold text-primary mt-2">Password</label>
+            <input class="border border-2 border-primary rounded-2 p-1 fw-medium" name="password" type="text" placeholder="password">
+            <button class="btn btn-primary border-3 border-primary-subtle rounded-5 fw-medium fst-italic mt-4">
+                Registrer
+            </button>
+        </form>
+        <div class="text-center row-cols-2 mt-3 m-auto fw-medium">
+            <a class="col-1 text-center" href="/login">Log inn</a>
+        </div>
+    </div>
+
+</body>
+<footer>
+    <%- include('./partials/footer.ejs') %>
+</footer>
+</html>

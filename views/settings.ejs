@@ -5,13 +5,28 @@
 </head>
 <body class="m-auto pt-5">
     <%- include("./partials/navbar.ejs") %>
-    <ul>
-        <li>Innstillinger?</li>
-        <li>Fargetema</li>
-        <li>osv</li>
-    </ul>
+    <div class="border border-3 border-<%=theme%> rounded-3 mt-3 p-3">
+        <div>
+            <p class="fw-medium h4 mb-3">Velg fargetema:</p>
+            <div class="container rounded-3 justify-content-evenly ">
+                <% colorThemes.forEach(color => { %>
+                    <button class="m-2 btn bg-<%=color%>-subtle border border-3 border-<%=color%> text-<%=color%> fw-medium rounded-circle" onclick="changeTheme('<%=color%>', '<%=baseUrl%>')">
+                        <p class="themeBtn">Farge</p>
+                    </button>
+                <%});%>
+            </div>
+        </div>
+
+        <hr>
+
+        <form action="/logout" method="post" class="my-3 float-end">
+            <button class="btn btn-outline-danger border-2 fw-medium mt-3" type="submit">Logg ut</button>
+        </form>
+    </div>
 </body>
 <footer>
+    <script src="../javascripts/script.js"> </script>
+    <script src="../javascripts/settings.script.js"></script>
     <%- include('./partials/footer.ejs') %>
 </footer>
 </html>

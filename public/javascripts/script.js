@@ -17,28 +17,33 @@ async function sortBy(sort) {
       });  
 };
 
+
 async function logoClicked() {
-    console.log(this.location.href)
-    if(this.location.href == "http://localhost:3000/") {
-        await fetch(`http://localhost:3000/logoClicked`, {
+    let loc = window.location.href;
+    // Normalize URL
+    if (!loc.endsWith("/")) {
+        loc += "/";
+    }
+
+    try {
+        await fetch(loc + "logoClicked", {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
             }
+        });
+
+        if (loc === "http://localhost:3000/") {
+            window.location.reload();
+        } else {
+            window.location.href = "http://localhost:3000/";
         }
-    ).then((response) => {
-        if (response.ok) {
-            return location.reload()
-        }
-        return Promise.reject(response);
-    })
-      .catch((response) => {
-        alert(response.statusText);
-      }); 
-    } else {
-        return location.href("http://localhost:3000/")
+    } catch (err) {
+        alert(err.message);
     }
 }
+
+
 
 async function populateModal(vare) {
     console.log('vare', vare)
@@ -67,7 +72,7 @@ async function deleteWare(id) {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'
-        } , 
+        }, 
         body: JSON.stringify({
             id: id
         })
@@ -85,13 +90,42 @@ async function deleteWare(id) {
 };
 
 async function deleteToast(id, name) {
-    console.log(id, name);
-    
+
     const deleteToast = document.getElementById("deleteToast");
     document.getElementById("toastmsg").innerHTML = name;
     const deleteButton = document.getElementById('toastDelete');
     deleteButton.addEventListener('click', () => {
         deleteWare(id)
     });
+
     new bootstrap.Toast(deleteToast, {delay: 7000}).show()
 }
+
+
+// SEARCH
+let wareList;
+if(this.location.href == "http://localhost:3000/") {
+
+    const search = document.getElementById("search");
+    
+    search.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        wareList = document.querySelectorAll(".vareNavn");
+        wareSearch(searchTerm);
+    });
+}
+
+function wareSearch (searchTerm) {
+    wareList.forEach(item => {
+        if(searchTerm == "") {
+            item.parentElement.classList.remove('hide');
+        } else {
+            if(!item.innerHTML.toLowerCase().includes(searchTerm)) {
+                item.parentElement.classList.add('hide');
+            } else {
+                item.parentElement.classList.remove('hide');
+            }
+        }
+    })
+}
+

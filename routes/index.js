@@ -3,15 +3,18 @@ var router = express.Router();
 var bodyParser = require("body-parser");
 var jsonParser = bodyParser.json();
 var vareService = require("../services/vare.service");
+const { loggedIn } = require('./authmiddlewares');
+const logoCC = require('../controllers/logoClick.controller');
 
-let result;
+
 /* GET home page. */
-router.get("/", async function (req, res, next) {
+router.get("/", loggedIn, async function (req, res, next) {
   try {
-    if (!result) {
-      result = await vareService.findAll();
+    if (!req.user?.varer || req.user.varer.length < 1) {
+      req.user.varer = await vareService.findAll();
     }
-    return res.render("index", { title: "Framside", varer: result });
+    
+    return res.render("index", { title: "Framside", varer: req.user.varer, theme: req.user?.theme ?? "primary" });
   } catch (err) {
     console.error("Error fetching fridge data:", err);
     next(err);
@@ -19,10 +22,10 @@ router.get("/", async function (req, res, next) {
 });
 
 /* POST add new ware */
-router.post("/create", jsonParser, async function (req, res, next) {
+router.post("/create", loggedIn, jsonParser, async function (req, res, next) {
   try {
     const postRequest = req.body;
-    result = "";
+    req.user.varer = null;
     await vareService.createWare(postRequest);
     return res.redirect("..");
   } catch (err) {
@@ -32,11 +35,11 @@ router.post("/create", jsonParser, async function (req, res, next) {
 });
 
 /* POST Update / edit ware */
-router.post("/edit", jsonParser, async function (req, res, next) {
+router.post("/edit", loggedIn, jsonParser, async function (req, res, next) {
   try {
     const editRequest = req.body;
     await vareService.editWare(editRequest);
-    result = "";
+    req.user.varer = null;
     return res.redirect("..");
   } catch (err) {
     console.error("Error updating ware:", err);
@@ -45,11 +48,11 @@ router.post("/edit", jsonParser, async function (req, res, next) {
 });
 
 /* DELETE ware */
-router.post("/delete", async function (req, res, next) {
+router.post("/delete", loggedIn, async function (req, res, next) {
   try {
     let vareId = req.body.id;
     await vareService.deleteWare(vareId);
-    result = "";
+    req.user.varer = null;
     return res.redirect(200, "index");
   } catch (err) {
     console.error("Error deleting ware:", err);
@@ -58,30 +61,21 @@ router.post("/delete", async function (req, res, next) {
 });
 
 /* Logo clicked */
-router.post("/logoClicked", async function (req, res, next) {
-  try {
-    result = "";
-	return res.status(200).json({status: "success"})
-  } catch (err) {
-    console.error("Error returning to index:", err);
-    next(err);
-  }
-});
+router.post("/logoClicked", loggedIn, logoCC.logoClicked);
 
 /* POST sort wares & reload/redirect */
-let lastSorted;
-router.post("/sortert/:sortering", jsonParser, async function (req, res, next) {
+router.post("/sortert/:sortering", loggedIn, jsonParser, async function (req, res, next) {
   try {
-    let sortBy = req.params.sortering;
-    let param;
-    if (lastSorted == sortBy) {
-      lastSorted = "";
-      param = -1;
+    req.user.sortBy = req.params.sortering;
+    req.user.param;
+    if (req.user.lastSorted == req.user.sortBy) {
+      req.user.lastSorted = "";
+      req.user.param = -1;
     } else {
-      lastSorted = req.params.sortering;
-      param = 1;
+      req.user.lastSorted = req.params.sortering;
+      req.user.param = 1;
     }
-    result = await vareService.sortBy(sortBy, param);
+    req.user.varer = await vareService.sortBy(req.user.sortBy, req.user.param);
 
     return res.redirect(200, "/");
   } catch (err) {
