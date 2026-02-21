@@ -8,10 +8,10 @@ const logoCC = require('../controllers/logoClick.controller');
 
 router.get("/", loggedIn, jsonParser, async function (req, res, next) {
   try {
-    const fridgeCount = await vareService.different("fridgeNumber");
+    const fridgeCount = await vareService.different(req.user.id, "fridgeNumber");
     // Wait for all fridge queries to resolve
     const fridgeContainers = await Promise.all(
-      fridgeCount.map((fridge) => vareService.findByFridge(fridge)),
+      fridgeCount.map((fridge) => vareService.findByFridge(req.user.id, fridge)),
     );
 
     return res.render("fryser", { title: "Fryseroversikt", fridgeContainers, theme: req.user?.theme ?? "primary" });
@@ -24,8 +24,8 @@ router.get("/", loggedIn, jsonParser, async function (req, res, next) {
 /* POST Update / edit ware */
 router.post("/edit", loggedIn, jsonParser, async function (req, res, next) {
   try {
-    const editRequest = req.body;
-    await vareService.editWare(editRequest);
+    // const editRequest = req.body;
+    await vareService.editWare(req.body);
     req.user.varer = null;
     return res.redirect('../fryser');
   } catch (err) {
@@ -36,5 +36,6 @@ router.post("/edit", loggedIn, jsonParser, async function (req, res, next) {
 
 /* Logo clicked */
 router.post("/logoClicked", loggedIn, logoCC.logoClicked);
+
 
 module.exports = router;

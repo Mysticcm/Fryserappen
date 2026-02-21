@@ -22,6 +22,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use("/css", express.static("./node_modules/bootstrap/dist/css"));
 
+// Global variables for app (<%=theme%> in ejs)
+// app.use((req, res, next) => {
+	// res.locals.themecolor = req.user.theme;
+	// 	res.locals.user = req.user;
+	// 	res.locals.baseUrl = process.env.BASE_URL;
+	// next()
+// });
+
 app.use(session({
   secret: 'keyboard cat',
   resave: false,

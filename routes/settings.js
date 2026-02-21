@@ -6,7 +6,7 @@ const logoCC = require('../controllers/logoClick.controller');
 const userService = require("../services/user.service");
 
 const baseUrl = process.env.BASE_URL;
-const colorThemes = ["primary", "secondary", "success", "danger", "warning", "info", "dark"]
+const colorThemes = ["primary", "secondary", "success", "danger", "warning", "info", "dark"];
 
 /* GET settings page. */
 router.get('/', loggedIn, async function(req, res, next) {

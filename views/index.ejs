@@ -16,7 +16,7 @@
       <thead>
         <tr class="bg-<%=theme%> bg-opacity-25 h5">
           <th class="border border-1 border-<%=theme%> text-center text-<%=theme%> col-1" onclick="sortBy('name')">Vare</th>
-          <th class="accordion border-1 border-<%=theme%> text-center text-<%=theme%> col-1" onclick="sortBy('type')">Type</th>
+          <th class="border-1 border-<%=theme%> text-center text-<%=theme%> col-1" onclick="sortBy('type')">Type</th>
           <th class="border border-1 border-<%=theme%> text-center text-<%=theme%> col-1">Vekt</th>
           <th class="border border-1 border-<%=theme%> text-center text-<%=theme%> col-1" onclick="sortBy('date')">Utløpsdato</th>
           <th class="border border-1 border-<%=theme%> text-center text-<%=theme%> col-1" onclick="sortBy('fridgeNumber')">Fryser</th>
@@ -61,7 +61,7 @@
           <form action="/create" method="post" autocomplete="on" class="row-cols-1">
             <input type="text" id="name" name="name" placeholder="varenavn" required><br>
             <input type="text" id="type" name="type" placeholder="varetype" required><br>
-            <input type="number" id="weight" name="weight" placeholder="vekt"><br>
+            <input type="number" id="weight" name="weight" min="0" placeholder="vekt"><br>
             <input type="date" id="date" name="date"><br>
             <input type="number" id="fridgeNumber" name="fridgeNumber" min="1" placeholder="fryser nummer" requiered><br>
             <input type="text" id="comment" name="comment" placeholder="kommentar" maxlength="100"><br>
@@ -150,6 +150,6 @@
 </body>
 <footer>
     <script src="../javascripts/script.js"> </script>
-    <%- include('./partials/footer.ejs') %>
+    <%- include('./partials/footer.ejs', theme) %>
 </footer>
 </html>

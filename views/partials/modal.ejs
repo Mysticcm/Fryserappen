@@ -1,0 +1,62 @@
+<!-- Edit Modal -->
+<!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+  <div
+    id="modal"
+    class="modal fade"
+    tabindex="-1"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    
+    role="dialog"
+    aria-labelledby="modalTitleId"
+    aria-hidden="true"
+  >
+    <div
+        class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
+        role="document"
+    >
+      <div class="modal-content">
+        <div class="modal-header bg-warning-subtle">
+          <h5 class="modal-title" id="modalTitleId">
+            Rediger eller fjern varen
+          </h5>
+          <button
+              type="button"
+              class="btn-close bg-danger"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              title="Avbryt"
+          ></button>
+        </div>
+        <div class="modal-body bg-warning-subtle">
+          <form id="modalForm" action="/edit" method="post" autocomplete="on" class="row-cols-1">
+            <input id="modalid" type="text" name="id" class="opacity-0"><br>
+            <input id="modalname" type="text" name="name" placeholder="varenavn" required><br>
+            <input id="modaltype" type="text" name="type" placeholder="varetype" required><br>
+            <input id="modalweight" type="number" name="weight" placeholder="vekt"><br>
+            <input id="modaldate" type="date" name="date"><br>
+            <input id="modalfridgeNumber" type="number" name="fridgeNumber" min="1" placeholder="fryser nummer" requiered><br>
+            <input id="modalcomment" type="text" name="comment" placeholder="kommentar" maxlength="100"><br>
+          <br>
+            <div class="modal-footer justify-content-evenly">
+              <button
+                id="modalSlettVare"
+                type="button"
+                class="btn btn-danger"
+                title="Slette varen"
+                >
+                <i class="bi bi-trash"></i> Fjern
+              </button>
+              <button
+                id="modalLagreEndring" 
+                class="btn btn-success"
+                title="Lagre endringer"
+                type="submit">
+                Lagre
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

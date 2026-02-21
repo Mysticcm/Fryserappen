@@ -12,8 +12,8 @@ router.get("/", loggedIn, async function (req, res, next) {
 		oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7);
 		let oneWeekSliced = oneWeekFromNow.toISOString().slice(0, 10);
 
-		const expired = await vareService.findByDate({ $lt: today });
-		const soonExpired = await vareService.findByDate({
+		const expired = await vareService.findByDate( req.user.id, {$lt: today} );
+		const soonExpired = await vareService.findByDate( req.user.id, {
 			$gte: today,
 			$lte: oneWeekSliced,
 		});

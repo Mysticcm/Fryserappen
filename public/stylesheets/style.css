@@ -1,3 +1,17 @@
+:root {
+  --primary: #0D6EFD;
+  --secondary: #6C757D;
+  --success: #198754;
+  --danger: #DC3545;
+  --warning: #FFC107;
+  --info: #0DCAF0;
+  --light: #F8F9FA;
+  --dark: #212529;
+  
+  --theme: var(--primary);
+  color-scheme: var(--light) var(--dark);
+}
+
 body {
   max-width: 1000px;
   padding: 1vw;
@@ -10,7 +24,7 @@ body {
 }
 
 #appNavn {
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
 .allura-regular {
@@ -35,10 +49,6 @@ body {
   display: none;
 }
 
-a {
-  color: #00B7FF;
-}
-
 navbar li {
   font-weight: bold;
 }
@@ -46,16 +56,17 @@ navbar li:hover {
   transform: scale(125%);
 }
 
-th {
-  text-shadow: white 1vw;
-}
+
+
 td {
   text-align: center;
 }
+
 tr:nth-of-type(even) {
-  background-color: rgb(13, 110, 253, 0.1);
+  background-color: color-mix(in srgb, var(--theme) 20%, transparent);
 }
+
 Table tr:hover {
-  border: solid 2px #0d6efd;
+  border: inset 3px var(--theme);
   font-size: 125%;
 }

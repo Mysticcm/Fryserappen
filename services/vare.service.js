@@ -1,8 +1,14 @@
 const Vare = require("../models/Vare");
 
 // Create ny ware ++
-    async function createWare(nyVare) {
-        return await Vare.create(nyVare);
+    async function createWare(userId, nyVare) {
+        const newWare = new Vare({
+            ...nyVare, 
+            user: userId
+        });
+        await newWare.save();
+        return newWare;
+        // return await Vare.create(nyVare);
     }
 
 // Edit ware
@@ -11,30 +17,25 @@ const Vare = require("../models/Vare");
     }
 
 // Delete ware
-    async function deleteWare(id) {
-        let idExists = await Vare.findById( id );
-        if(idExists) {
-            await Vare.deleteOne({_id: id}).exec();
-        }
-        return;
+    async function deleteWare(userId, id) {
+        return await Vare.findOneAndDelete({ user: userId, _id: id });
     }
 
 // Find all wares
-    async function findAll() {
-        return await Vare.find({}).limit(50).exec();
+    async function findAll(userId) {
+        return await Vare.find({user: userId}).limit(50).exec();
     }
 
 // Find by Date
-    async function findByDate(date) {
-        return await Vare.find({date: date}).sort({ date: 1 }).exec();
-        
+    async function findByDate(userId, date) {
+        return await Vare.find({date: date, user: userId}).sort({ date: 1 }).exec();
     }
 
 // Find by fridgeNumber
-    async function findByFridge(fridgeNumber) {
+    async function findByFridge(userId, fridgeNumber) {
         try {
-            const varer = await Vare.find({ fridgeNumber }).exec();
-            const count = await Vare.countDocuments({ fridgeNumber }).exec();
+            const varer = await Vare.find({ user: userId, fridgeNumber }).exec();
+            const count = await Vare.countDocuments({ user: userId, fridgeNumber }).exec();
             return { fridgeNumber, varer, count };
         } catch (err) {
             console.error('Error finding items:', err);
@@ -43,13 +44,13 @@ const Vare = require("../models/Vare");
     }    
 
 // Sort
-    async function sortBy(key, value) {
-        return await Vare.find({}).sort({ [key]: value} ); 
+    async function sortBy(userId, key, value) {
+        return await Vare.find({user: userId}).sort({ [key]: value} ); 
     };
 
 // Find the different values of a key
-    async function different(key) {
-        return await Vare.distinct(key).sort();
+    async function different(userId, key) {
+        return await Vare.distinct(key, {user: userId}).sort();
     }
 
 

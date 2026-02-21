@@ -11,7 +11,7 @@ const logoCC = require('../controllers/logoClick.controller');
 router.get("/", loggedIn, async function (req, res, next) {
   try {
     if (!req.user?.varer || req.user.varer.length < 1) {
-      req.user.varer = await vareService.findAll();
+      req.user.varer = await vareService.findAll(req.user.id);
     }
     
     return res.render("index", { title: "Framside", varer: req.user.varer, theme: req.user?.theme ?? "primary" });
@@ -26,7 +26,7 @@ router.post("/create", loggedIn, jsonParser, async function (req, res, next) {
   try {
     const postRequest = req.body;
     req.user.varer = null;
-    await vareService.createWare(postRequest);
+    await vareService.createWare(req.user.id, postRequest);
     return res.redirect("..");
   } catch (err) {
     console.error("Error creating new ware:", err);
@@ -51,7 +51,7 @@ router.post("/edit", loggedIn, jsonParser, async function (req, res, next) {
 router.post("/delete", loggedIn, async function (req, res, next) {
   try {
     let vareId = req.body.id;
-    await vareService.deleteWare(vareId);
+    await vareService.deleteWare(req.user.id, vareId);
     req.user.varer = null;
     return res.redirect(200, "index");
   } catch (err) {
@@ -75,7 +75,7 @@ router.post("/sortert/:sortering", loggedIn, jsonParser, async function (req, re
       req.user.lastSorted = req.params.sortering;
       req.user.param = 1;
     }
-    req.user.varer = await vareService.sortBy(req.user.sortBy, req.user.param);
+    req.user.varer = await vareService.sortBy(req.user.id, req.user.sortBy, req.user.param);
 
     return res.redirect(200, "/");
   } catch (err) {

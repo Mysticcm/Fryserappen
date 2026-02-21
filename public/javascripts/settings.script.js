@@ -11,12 +11,15 @@ async function changeTheme(themeColor, baseUrl) {
                 theme: themeColor
             })
         })
-        await response.json()
-        return window.location.reload()
+        await response.json();
+        return window.location.reload();
     } catch (err) {
         alert(err.message);
     }
 };
+
+
+
 
 
 
