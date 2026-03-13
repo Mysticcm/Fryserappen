@@ -1,5 +1,7 @@
+// baseUrl = window.location.origin;
 
-async function changeTheme(themeColor, baseUrl) {
+
+async function changeTheme(themeColor) {
     try {
         const path = "/settings/theme"
         const response = await fetch(baseUrl + path, {

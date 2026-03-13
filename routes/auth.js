@@ -46,7 +46,7 @@ var router = express.Router();
 
 router.get('/login', function (req, res, next) {
   try {
-    return res.render('login', { title: "Login" });
+    return res.render('login', { title: "Login", theme: req.user?.theme ?? "primary" });
   } catch (err) {
     next(err);
   }

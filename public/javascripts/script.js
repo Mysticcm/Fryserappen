@@ -1,5 +1,7 @@
+const baseUrl = window.location.origin;
+
 async function sortBy(sort) {
-    await fetch(`http://localhost:3000/sortert/${sort}`, {
+    await fetch(`${baseUrl}/sortert/${sort}`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'
@@ -32,12 +34,12 @@ async function logoClicked() {
                 'Content-type': 'application/json'
             }
         });
-
-        if (loc === "http://localhost:3000/") {
-            window.location.reload();
-        } else {
-            window.location.href = "http://localhost:3000/";
-        }
+        loc === baseUrl ? window.location.reload() : window.location.href = baseUrl 
+        // if (loc === baseUrl) {
+        //     window.location.reload();
+        // } else {
+        //     window.location.href = baseUrl;
+        // }
     } catch (err) {
         alert(err.message);
     }
@@ -68,7 +70,7 @@ async function populateModal(vare) {
 }
 
 async function deleteWare(id) {
-    await fetch(`http://localhost:3000/delete`, {
+    await fetch(`${baseUrl}/delete`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'
@@ -104,8 +106,8 @@ async function deleteToast(id, name) {
 
 // SEARCH
 let wareList;
-if(this.location.href == "http://localhost:3000/") {
-
+if(this.location.href === baseUrl + "/") {
+    
     const search = document.getElementById("search");
     
     search.addEventListener('input', function(e) {

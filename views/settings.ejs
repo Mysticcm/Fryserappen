@@ -10,7 +10,7 @@
             <p class="fw-medium h4 mb-3">Velg fargetema:</p>
             <div class="container rounded-3 justify-content-evenly ">
                 <% colorThemes.forEach(color => { %>
-                    <button class="m-2 btn bg-<%=color%>-subtle border border-3 border-<%=color%> text-<%=color%> fw-medium rounded-circle" onclick="changeTheme('<%=color%>', '<%=baseUrl%>')">
+                    <button class="m-2 btn bg-<%=color%>-subtle border border-3 border-<%=color%> text-<%=color%> fw-medium rounded-circle" onclick="changeTheme('<%=color%>')">
                         <p class="themeBtn">Farge</p>
                     </button>
                 <%});%>
