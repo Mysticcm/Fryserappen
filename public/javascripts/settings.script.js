@@ -1,6 +1,5 @@
 // baseUrl = window.location.origin;
 
-
 async function changeTheme(themeColor) {
     try {
         const path = "/settings/theme"
@@ -20,14 +19,3 @@ async function changeTheme(themeColor) {
     }
 };
 
-
-
-
-
-
-
-// const themeButtons = document.getElementsByClassName("themeBtn");
-// themeButtons.addEventListener('click', () => {
-//     changeTheme(this.InnerHTML);
-    
-// })

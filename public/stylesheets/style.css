@@ -69,4 +69,10 @@ tr:nth-of-type(even) {
 Table tr:hover {
   border: inset 3px var(--theme);
   font-size: 125%;
+  transition: border 0.15s ease;
+  transition: font-size 0.15s ease;
+}
+
+.top-25 {
+  top: 25 !important;
 }

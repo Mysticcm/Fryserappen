@@ -35,11 +35,6 @@ async function logoClicked() {
             }
         });
         loc === baseUrl ? window.location.reload() : window.location.href = baseUrl 
-        // if (loc === baseUrl) {
-        //     window.location.reload();
-        // } else {
-        //     window.location.href = baseUrl;
-        // }
     } catch (err) {
         alert(err.message);
     }
